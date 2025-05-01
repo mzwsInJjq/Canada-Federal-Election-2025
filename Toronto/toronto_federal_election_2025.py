@@ -2,12 +2,14 @@
 
 """gdf: https://open.canada.ca/data/en/dataset/18bf3ea7-1940-46ec-af52-9ba3f77ed708/resource/1f4b018b-a303-48bb-8ea0-10746e7cf435"""
 
+"""boundries: https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/index2021-eng.cfm?year=21"""
+
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
 from matplotlib.colors import TwoSlopeNorm
 
-path = r"D:\Polling Division Shapefile - 2025 General Election\EventResults.txt"
+path = r"D:\EventResults.txt"
 columns = [
     "Electoral district number - Numéro de la circonscription",
     "Electoral district name",
@@ -96,6 +98,12 @@ mov["Electoral district number - Numéro de la circonscription"] = mov["Electora
 
 # Add the MOV to the GeoDataFrame from mov
 gdf = gdf.merge(mov, left_on="FED_NUM", right_on="Electoral district number - Numéro de la circonscription", how="left")
+
+# Clip to the Toronto boundaries
+boundries = gpd.read_file(r"D:\lpr_000b21a_e\lpr_000b21a_e.shp")
+boundries = boundries[boundries['PRUID'] == '35']
+boundries = boundries.to_crs("epsg:4326")
+gdf = gpd.overlay(gdf, boundries, how='intersection', keep_geom_type=False)
 
 # Plotting the map
 fig, ax = plt.subplots(figsize=(5, 10))
