@@ -1,4 +1,6 @@
-"""https://open.canada.ca/data/en/dataset/18bf3ea7-1940-46ec-af52-9ba3f77ed708/resource/1f4b018b-a303-48bb-8ea0-10746e7cf435"""
+"""df: https://enr.elections.ca/DownloadResults.aspx"""
+
+"""gdf: https://open.canada.ca/data/en/dataset/18bf3ea7-1940-46ec-af52-9ba3f77ed708/resource/1f4b018b-a303-48bb-8ea0-10746e7cf435"""
 
 import pandas as pd
 import geopandas as gpd
