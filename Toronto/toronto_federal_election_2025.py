@@ -42,7 +42,7 @@ toronto_ed_nums = [
     "35105", "35109", "35110", "35111",
     "35112", "35117", "35120", "35122"]
 
-toronto_df = df[df["Electoral district number - Numéro de la circonscription"].isin(toronto_ed_nums)]
+toronto_df = df[df["Electoral district number - Numéro de la circonscription"].isin(toronto_ed_nums) & df["Type of results"].str.startswith("preliminary")]
 print(toronto_df.head(10))
 
 # Sum all the liberal votes
