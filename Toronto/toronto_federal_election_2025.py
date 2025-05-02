@@ -76,7 +76,7 @@ for index, row in mov.iterrows():
     print(f"{row['Electoral district number - Numéro de la circonscription']} {row["Electoral district name"]}: {row['MOV']:.2f}%")
 
 # Create a color map
-norm = TwoSlopeNorm(vmin=-50, vcenter=0, vmax=50)
+norm = TwoSlopeNorm(vmin=-100, vcenter=0, vmax=100)
 cmap = plt.get_cmap('bwr')
 
 # Print the overall results
@@ -109,5 +109,10 @@ gdf = gpd.overlay(gdf, boundries, how='intersection', keep_geom_type=False)
 fig, ax = plt.subplots(figsize=(5, 10))
 gdf.plot(column='MOV', cmap=cmap, linewidth=0, ax=ax, norm=norm)
 ax.axis('off')
+
+# Set the bbox for Toronto
+bbox = (-79.6392832, 43.5796082, -79.1132193, 43.8554425)
+ax.set_xlim(bbox[0], bbox[2])
+ax.set_ylim(bbox[1], bbox[3])
 
 plt.savefig('toronto_federal_election_2025.pdf', format='pdf', bbox_inches='tight')
